@@ -13,6 +13,15 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    'blog-posts': BlogPost;
+    topics: Topic;
+    comments: Comment;
+    'seo-meta': SeoMeta;
+    analytics: Analytics;
+    'blog-post-topics': BlogPostTopic;
+    tags: Tag;
+    'blog-post-tags': BlogPostTag;
+    'related-posts': RelatedPost;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -78,6 +87,122 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog-posts".
+ */
+export interface BlogPost {
+  id: string;
+  author: string | User;
+  title: string;
+  slug: string;
+  content: string;
+  summary: string;
+  featuredImage?: string | Media | null;
+  readTime: number;
+  publishedDate: string;
+  canonicalUrl?: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "topics".
+ */
+export interface Topic {
+  id: string;
+  name: string;
+  description: string;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "comments".
+ */
+export interface Comment {
+  id: string;
+  'blog-post': string | BlogPost;
+  user: string | User;
+  commentText: string;
+  'parent-comment'?: (string | null) | Comment;
+  created?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "seo-meta".
+ */
+export interface SeoMeta {
+  id: string;
+  'post-id': string | BlogPost;
+  'meta-title': string;
+  'meta-description': string;
+  'focus-keywords': string;
+  'schema-markup'?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "analytics".
+ */
+export interface Analytics {
+  id: string;
+  'post-id': string | BlogPost;
+  'page-views': number;
+  likes: number;
+  shares: number;
+  'average-time-on-page': number;
+  'bounce-rate': number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog-post-topics".
+ */
+export interface BlogPostTopic {
+  id: string;
+  'post-id': string | BlogPost;
+  'topic-id': string | Topic;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: string;
+  name: string;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog-post-tags".
+ */
+export interface BlogPostTag {
+  id: string;
+  'post-id': string | BlogPost;
+  'tag-id': string | Tag;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "related-posts".
+ */
+export interface RelatedPost {
+  id: string;
+  'post-id': string | BlogPost;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
